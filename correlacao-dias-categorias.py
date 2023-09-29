@@ -1,4 +1,4 @@
-#GRÁFICO DE LINHAS
+#GRÁFICO DE DISPERSÃO
 import pandas as pd
 import plotly.express as px
 
