@@ -1,3 +1,4 @@
+#GRÁFICO DE BARRAS
 import pandas as pd
 
 # carregando o dataframe
