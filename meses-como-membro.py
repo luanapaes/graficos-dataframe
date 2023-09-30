@@ -1,5 +1,6 @@
 #gráfico de areas
 #meses como membro 2 - index 292 : durante 2 meses 292 alunos estavam em determinada categoria, por exemplo
+
 import pandas as pd
 import plotly.express as px
 
@@ -21,26 +22,11 @@ attended = data_dict['attended']
 import pandas as pd
 import plotly.express as px
 
-df_grouped = df.groupby(['day_of_week', 'category']).size().reset_index(name='count')
 
-# Define um mapeamento de cores para cada dia da semana
-color_map = {
-    'Monday': 'red',
-    'Tuesday': 'green',
-    'Wednesday': 'blue',
-    'Thursday': 'orange',
-    'Friday': 'purple',
-    'Saturday': 'pink',
-    'Sunday': 'brown'
-}
-
-# Cria o gráfico de linhas (dispersão) com cores diferentes para cada dia da semana
-fig = px.scatter(df_grouped, x='day_of_week', y='category', size='count', color='day_of_week',
-                 color_discrete_map=color_map,
-                 labels={'day_of_week': 'Dia da Semana', 'category': 'Categoria', 'count': 'Contagem'},
-                 title='Gráfico de Dispersão: Correlação entre Dias da Semana e Categorias')
+# Cria o gráfico de área
+fig = px.area(df, x='months_as_member', facet_col='category', 
+              labels={'months_as_member': 'Meses como Membro', 'category': 'Categoria'},
+              title='Gráfico de Área: Distribuição de Categorias em Relação aos Meses como Membro')
 
 # Exibe o gráfico
 fig.show()
-
-
