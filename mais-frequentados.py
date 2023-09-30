@@ -1,4 +1,4 @@
-# GRAFICO DE BARRAS
+#grafico de barras
 import pandas as pd
 
 # carregando o dataframe
@@ -7,7 +7,7 @@ df = pd.read_csv('data.csv')
 # Converta o DataFrame em um dicionário - cada coluna virou um "array"
 data_dict = df.to_dict(orient='list')
 
-# Acessa cada coluna do dicionário e atribua-a a uma variável
+# Acesse cada coluna do dicionário e atribua-a a uma variável
 months_as_member = data_dict['months_as_member']
 weight = data_dict['weight']
 days_before = data_dict['days_before']
@@ -16,11 +16,10 @@ time = data_dict['time']
 category = data_dict['category']
 attended = data_dict['attended']
 
-
 import plotly.express as px
 import pandas as pd
 
-# Cria um DataFrame com suas variáveis
+# cria um DataFrame com as variáveis dias da semana e hora
 df = pd.DataFrame({
     'day_of_week': day_of_week,
     'time': time
@@ -29,33 +28,10 @@ df = pd.DataFrame({
 # Cria uma coluna com a contagem de ocorrências para cada combinação de dia da semana e hora
 df_grouped = df.groupby(['day_of_week', 'time']).size().reset_index(name='count')
 
-# Calcula as contagens para AM e PM
-am_count = df_grouped[df_grouped['time'] == 'AM']['count'].sum()
-pm_count = df_grouped[df_grouped['time'] == 'PM']['count'].sum()
-
-# Determina qual período tem maior contagem, se é de manhã ou tarde e noite
-if am_count > pm_count:
-    maior_periodo = "entre 00h e 12h o movimento é maior"
-else:
-    maior_periodo = "entre 12h e 00h o movimento é maior"
-
 # Cria o gráfico de barras
 fig = px.bar(df_grouped, x='day_of_week', y='count', color='time',
-             labels={'day_of_week': 'Dia da Semana', 'count': 'Hora'},
+             labels={'day_of_week': 'Dia da Semana', 'count': 'Contagem'},
              title='Gráfico de Barras: Contagem por Dia da Semana e Hora')
 
-# Adicione um parágrafo de texto com base no período com maior contagem
-fig.add_annotation(
-    text=maior_periodo,
-    x=0.5,  # Posição x no gráfico (0 a 1)
-    y=1.2,  # Posição y no gráfico (0 a 1)
-    showarrow=False,
-    font=dict(size=14),
-    bgcolor="lightgray",
-    bordercolor="gray",
-    borderwidth=1,
-    borderpad=4,
-    opacity=0.9
-)
-
+# Exibe o gráfico
 fig.show()
